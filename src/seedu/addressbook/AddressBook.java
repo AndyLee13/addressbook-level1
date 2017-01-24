@@ -41,24 +41,16 @@ import java.util.Set;
  */
 public class AddressBook {
 
-    /**
-     * Default file path used if the user doesn't provide the file name.
-     */
+    /** Default file path used if the user doesn't provide the file name. */
     private static final String DEFAULT_STORAGE_FILEPATH = "addressbook.txt";
 
-    /**
-     * Version info of the program.
-     */
+    /** Version info of the program. */
     private static final String VERSION = "AddessBook Level 1 - Version 1.0";
 
-    /**
-     * A decorative prefix added to the beginning of lines printed by AddressBook
-     */
+    /** A decorative prefix added to the beginning of lines printed by AddressBook */
     private static final String LINE_PREFIX = "|| ";
 
-    /**
-     * A platform independent line separator.
-     */
+    /** A platform independent line separator. */
     private static final String LS = System.lineSeparator() + LINE_PREFIX;
 
     /*
@@ -150,22 +142,17 @@ public class AddressBook {
     private static final String PERSON_PROPERTY_NAME = "name";
     private static final String PERSON_PROPERTY_PHONE = "phone";
     private static final String PERSON_PROPERTY_EMAIL = "email";
-    /**
-     * Using Enum for personProperty
-     */
+    
+    /** Using Enum for personProperty*/
     private enum PersonProperty  {NAME, EMAIL, PHONE};
     
-    /**
-     * Offset required to convert between 1-indexing and 0-indexing.COMMAND_
-     */
+    /** Offset required to convert between 1-indexing and 0-indexing.COMMAND_*/
     private static final int DISPLAYED_INDEX_OFFSET = 1;
 
-    /**
-     * If the first non-whitespace character in a user's input line is this, that line will be ignored.
-     */
+    /** If the first non-whitespace character in a user's input line is this, that line will be ignored.*/
     private static final char INPUT_COMMENT_MARKER = '#';
     
-   /* We only accept less than 2 arguments*/ 
+   /** We only accept less than 2 arguments*/ 
     private static final int MINIMUM_INVALID_NUMBER = 2;
     private static final int VALID_NUMBER = 1;
     private static final int DEFAULT_NUMBER = 0;
@@ -190,9 +177,7 @@ public class AddressBook {
      * ====================================================================================================
      */
 
-    /**
-     * List of all persons in the address book.
-     */
+    /** List of all persons in the address book.*/
     private static final ArrayList<HashMap<PersonProperty,String>> ALL_PERSONS = new ArrayList<>();
 
     /**
@@ -202,9 +187,7 @@ public class AddressBook {
      */
     private static ArrayList<HashMap<PersonProperty,String>> latestPersonListingView = getAllPersonsInAddressBook(); // initial view is of all
 
-    /**
-     * The path to the file used for storing person data.
-     */
+    /** The path to the file used for storing person data.*/
     private static String storageFilePath;
 
     /*
@@ -220,18 +203,7 @@ public class AddressBook {
 
     public static void main(String[] args) {
         showWelcomeMessage();
-        if (args.length >= MINIMUM_INVALID_NUMBER) {
-            showToUser(new String[] {MESSAGE_INVALID_PROGRAM_ARGS});
-            exitProgram();
-        }
-
-        if (args.length == VALID_NUMBER) {
-            setupGivenFileForStorage(args[0]);
-        }
-
-        if(args.length == DEFAULT_NUMBER) {
-            setupDefaultFileForStorage();
-        }
+        processProgramArgs(args);
         loadDataFromStorage();
         while (true) {
             String userCommand = getUserInput();
@@ -265,9 +237,7 @@ public class AddressBook {
      * ====================================================================
      */
 
-    /**
-     * Echoes the user input back to the user.
-     */
+    /** Echoes the user input back to the user. */
     private static void echoUserCommand(String userCommand) {
         showToUser(new String[] {"[Command entered:" + userCommand + "]"});
     }
