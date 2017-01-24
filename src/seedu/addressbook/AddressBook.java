@@ -146,17 +146,13 @@ public class AddressBook {
      * used by the internal String[] storage format.
      * For example, a person's name is stored as the 0th element in the array.
      */
-    private static final int PERSON_DATA_INDEX_NAME = 0;
-    private static final int PERSON_DATA_INDEX_PHONE = 1;
-    private static final int PERSON_DATA_INDEX_EMAIL = 2;
 
     private static final String PERSON_PROPERTY_NAME = "name";
     private static final String PERSON_PROPERTY_PHONE = "phone";
     private static final String PERSON_PROPERTY_EMAIL = "email";
     /**
-     * The number of data elements for a single person.
+     * Using Enum for personProperty
      */
-    private static final int PERSON_DATA_COUNT = 3;
     private enum PersonProperty  {NAME, EMAIL, PHONE};
     
     /**
@@ -168,6 +164,11 @@ public class AddressBook {
      * If the first non-whitespace character in a user's input line is this, that line will be ignored.
      */
     private static final char INPUT_COMMENT_MARKER = '#';
+    
+   /* We only accept less than 2 arguments*/ 
+    private static final int MINIMUM_INVALID_NUMBER = 2;
+    private static final int VALID_NUMBER = 1;
+    private static final int DEFAULT_NUMBER = 0;
     
     
 
@@ -219,16 +220,16 @@ public class AddressBook {
 
     public static void main(String[] args) {
         showWelcomeMessage();
-        if (args.length >= 2) {
+        if (args.length >= MINIMUM_INVALID_NUMBER) {
             showToUser(new String[] {MESSAGE_INVALID_PROGRAM_ARGS});
             exitProgram();
         }
 
-        if (args.length == 1) {
+        if (args.length == VALID_NUMBER) {
             setupGivenFileForStorage(args[0]);
         }
 
-        if(args.length == 0) {
+        if(args.length == DEFAULT_NUMBER) {
             setupDefaultFileForStorage();
         }
         loadDataFromStorage();
