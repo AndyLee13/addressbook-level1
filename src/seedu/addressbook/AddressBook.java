@@ -479,11 +479,27 @@ public class AddressBook {
         final ArrayList<HashMap<PersonProperty,String>> matchedPersons = new ArrayList<>();
         for (HashMap<PersonProperty,String> person : getAllPersonsInAddressBook()) {
             final Set<String> wordsInName = new HashSet<>(splitByWhitespace(getNameFromPerson(person)));
-            if (!Collections.disjoint(wordsInName, keywords)) {
+            boolean foundMatch = findOverlap(keywords,wordsInName);
+            if (foundMatch) {
                 matchedPersons.add(person);
             }
         }
         return matchedPersons;
+    }
+    
+    /**
+     * Find Match between the input keywords and existing names in a case-insensitive manner. 
+     */
+    private static boolean findOverlap(Collection<String> keywords, final Set<String> wordsInName){
+    	boolean foundMatch = false; 
+    	for(String keyword:keywords){
+    		for(String word:wordsInName){
+    			if(keyword.equalsIgnoreCase(word)){
+    				foundMatch = true;
+    			}
+    		}
+    	}
+    	return foundMatch;
     }
 
     /**
