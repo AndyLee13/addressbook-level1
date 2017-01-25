@@ -491,15 +491,15 @@ public class AddressBook {
      * Find Match between the input keywords and existing names in a case-insensitive manner. 
      */
     private static boolean findOverlap(Collection<String> keywords, final Set<String> wordsInName){
-    	boolean foundMatch = false; 
+    	boolean hasMatch = false; 
     	for(String keyword:keywords){
     		for(String word:wordsInName){
     			if(keyword.equalsIgnoreCase(word)){
-    				foundMatch = true;
+    				hasMatch = true;
     			}
     		}
     	}
-    	return foundMatch;
+    	return hasMatch;
     }
 
     /**
