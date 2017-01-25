@@ -152,11 +152,16 @@ public class AddressBook {
     /** If the first non-whitespace character in a user's input line is this, that line will be ignored.*/
     private static final char INPUT_COMMENT_MARKER = '#';
     
-   /** We only accept less than 2 arguments*/ 
+   /** We only accept less than 2 arguments */ 
     private static final int MINIMUM_INVALID_NUMBER = 2;
     private static final int VALID_NUMBER = 1;
     private static final int DEFAULT_NUMBER = 0;
     
+    /** Remove Magic Number in SplitArgs */
+    private static final int SPLIT_ARGS_INDEX1 = 0;
+    private static final int SPLIT_ARGS_INDEX2 = 1;
+    private static final int SPLIT_ARGS_INDEX3 = 2;
+    private static final int VALID_ARGS_LENGTH = 3;
     
 
     /*
@@ -250,16 +255,16 @@ public class AddressBook {
      * @param args full program arguments passed to application main method
      */
     private static void processProgramArgs(String[] args) {
-        if (args.length >= 2) {
+        if (args.length >= MINIMUM_INVALID_NUMBER) {
             showToUser(new String[] {MESSAGE_INVALID_PROGRAM_ARGS});
             exitProgram();
         }
 
-        if (args.length == 1) {
+        if (args.length == VALID_NUMBER) {
             setupGivenFileForStorage(args[0]);
         }
 
-        if(args.length == 0) {
+        if(args.length == DEFAULT_NUMBER) {
             setupDefaultFileForStorage();
         }
     }
@@ -973,10 +978,10 @@ public class AddressBook {
     private static boolean isPersonDataExtractableFrom(String personData) {
         final String matchAnyPersonDataPrefix = PERSON_DATA_PREFIX_PHONE + '|' + PERSON_DATA_PREFIX_EMAIL;
         final String[] splitArgs = personData.trim().split(matchAnyPersonDataPrefix);
-        return splitArgs.length == 3 // 3 arguments
-                && !splitArgs[0].isEmpty() // non-empty arguments
-                && !splitArgs[1].isEmpty()
-                && !splitArgs[2].isEmpty();
+        return splitArgs.length == VALID_ARGS_LENGTH // 3 arguments
+                && !splitArgs[SPLIT_ARGS_INDEX1].isEmpty() // non-empty arguments
+                && !splitArgs[SPLIT_ARGS_INDEX2].isEmpty()
+                && !splitArgs[SPLIT_ARGS_INDEX3].isEmpty();
     }
 
     /**
