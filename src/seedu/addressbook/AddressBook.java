@@ -479,8 +479,8 @@ public class AddressBook {
         final ArrayList<HashMap<PersonProperty,String>> matchedPersons = new ArrayList<>();
         for (HashMap<PersonProperty,String> person : getAllPersonsInAddressBook()) {
             final Set<String> wordsInName = new HashSet<>(splitByWhitespace(getNameFromPerson(person)));
-            boolean foundMatch = findOverlap(keywords,wordsInName);
-            if (foundMatch) {
+            boolean hasMatch = findOverlap(keywords,wordsInName);
+            if (hasMatch) {
                 matchedPersons.add(person);
             }
         }
