@@ -432,7 +432,8 @@ public class AddressBook {
      */
     private static String getMessageForSuccessfulAddPerson(HashMap<PersonProperty,String> addedPerson) {
         return String.format(MESSAGE_ADDED,
-                getNameFromPerson(addedPerson), getPhoneFromPerson(addedPerson), getEmailFromPerson(addedPerson));
+                getNameFromPerson(addedPerson), getPhoneFromPerson(addedPerson), 
+                								getEmailFromPerson(addedPerson));
     }
 
     /**
@@ -444,7 +445,8 @@ public class AddressBook {
      */
     private static String executeFindPersons(String commandArgs) {
         final Set<String> keywords = extractKeywordsFromFindPersonArgs(commandArgs);
-        final ArrayList<HashMap<PersonProperty,String>> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
+        final ArrayList<HashMap<PersonProperty,String>> personsFound = 
+        								getPersonsWithNameContainingAnyKeyword(keywords);
         showToUser(personsFound);
         return getMessageForPersonsDisplayedSummary(personsFound);
     }
@@ -669,7 +671,8 @@ public class AddressBook {
      * @return formatted listing message with index
      */
     private static String getIndexedPersonListElementMessage(int visibleIndex, HashMap<PersonProperty,String> person) {
-        return String.format(MESSAGE_DISPLAY_LIST_ELEMENT_INDEX, visibleIndex) + getMessageForFormattedPersonData(person);
+        return String.format(MESSAGE_DISPLAY_LIST_ELEMENT_INDEX, visibleIndex) 
+        							+ getMessageForFormattedPersonData(person);
     }
 
     /**
@@ -740,7 +743,8 @@ public class AddressBook {
      * @return the list of decoded persons
      */
     private static ArrayList<HashMap<PersonProperty,String>> loadPersonsFromFile(String filePath) {
-        final Optional<ArrayList<HashMap<PersonProperty,String>>> successfullyDecoded = decodePersonsFromStrings(getLinesInFile(filePath));
+        final Optional<ArrayList<HashMap<PersonProperty,String>>> successfullyDecoded = 
+        												decodePersonsFromStrings(getLinesInFile(filePath));
         if (!successfullyDecoded.isPresent()) {
             showToUser(new String[] {MESSAGE_INVALID_STORAGE_FILE_CONTENT});
             exitProgram();
@@ -879,7 +883,8 @@ public class AddressBook {
      * @param email without data prefix
      * @return constructed person
      */
-    private static HashMap<PersonProperty,String> makePersonFromData(String name, String phone, String email) {
+    private static HashMap<PersonProperty,String> makePersonFromData(String name, 
+    													String phone, String email) {
         final HashMap<PersonProperty,String> person = new HashMap<>();
         person.put(PersonProperty.NAME, name);
         person.put(PersonProperty.EMAIL, email);
